@@ -11,6 +11,16 @@
      [ "$status" -eq 0 ]
 }
 
+@test "xst responds" {
+    run docker run --name btest --rm builder xst -v
+     [ "$status" -eq 0 ]
+}
+
+@test "jinks-cli responds" {
+    run docker run --name btest --rm builder jinks -h
+     [ "$status" -eq 0 ]
+}
+
 @test "git responds" {
     run docker run --name btest --rm builder git -v
      [ "$status" -eq 0 ]

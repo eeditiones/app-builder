@@ -36,3 +36,5 @@ RUN curl -L -o apache-ant-${ANT_VERSION}-bin.tar.gz https://downloads.apache.org
     && unset ANT_VERSION
 
 ENV PATH=${PATH}:${ANT_HOME}/bin
+
+RUN npm install -g  @teipublisher/jinks-cli @existdb/xst

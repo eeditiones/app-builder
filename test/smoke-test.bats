@@ -17,7 +17,7 @@
 }
 
 @test "jinks-cli responds" {
-    run docker run --name btest --rm builder jinks -h
+    run docker run --name btest --rm builder jinks -v
      [ "$status" -eq 0 ]
 }
 

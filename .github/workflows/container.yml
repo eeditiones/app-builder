@@ -46,7 +46,7 @@ jobs:
         run: sudo apt-get install bats
       
       - name: Build default images for testing on CI
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -94,7 +94,7 @@ jobs:
 
       - name: Push image
         if: github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           platforms: linux/amd64,linux/arm64

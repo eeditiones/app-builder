@@ -2,8 +2,8 @@
 # Test expect a prebuild image named builder
 
 @test "ant responds" {
-    result=$(docker run --name btest --rm builder ant -version | grep -o '1.10.15')
-    [ "$result" == '1.10.15' ]
+    result=$(docker run --name btest --rm builder ant -version | grep -o '1.10.16')
+    [ "$result" == '1.10.16' ]
 }
 
 @test "npm responds" {

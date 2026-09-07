@@ -2,15 +2,14 @@ name: Builder image (Ant, Node)
 
 on:
   push:
-    # Publish `main` as Docker `latest` image.
+    # Run tests on every push; publishing is further restricted below to `main`.
     branches:
-      - main
-      - 'release/*'
+      - '**'
 
-    # Publish `v1.2.3` tags as releases.
+    # Also run on `v1.2.3` release tags.
     tags:
       - v*
-  
+
   pull_request:
     branches: [ main ]
 
@@ -58,11 +57,11 @@ jobs:
       - name: Run tests
         run: bats --tap test/*.bats     
   push:
-    # Ensure test job passes before pushing image.
+    # Ensure test job passes before pushing image. Publishing is restricted to `main`.
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v7

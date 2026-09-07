@@ -2,15 +2,14 @@ name: Builder image (Ant, Node)
 
 on:
   push:
-    # Publish `main` as Docker `latest` image.
+    # Run tests on every push; publishing is further restricted below to `main`.
     branches:
-      - main
-      - 'release/*'
+      - '**'
 
-    # Publish `v1.2.3` tags as releases.
+    # Also run on `v1.2.3` release tags.
     tags:
       - v*
-  
+
   pull_request:
     branches: [ main ]
 
@@ -31,7 +30,7 @@ jobs:
       matrix:
         JAVA_VERSION: [11, 21]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -58,14 +57,14 @@ jobs:
       - name: Run tests
         run: bats --tap test/*.bats     
   push:
-    # Ensure test job passes before pushing image.
+    # Ensure test job passes before pushing image. Publishing is restricted to `main`.
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -86,7 +85,7 @@ jobs:
 
       - name: Login to GHCR
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v4
+        uses: docker/login-action@v4.5.2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}

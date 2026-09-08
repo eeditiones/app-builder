@@ -59,14 +59,14 @@ jobs:
         run: bats --tap test/*.bats
   push:
     # Ensure test job passes before pushing image. Publishing is restricted to
-    # `main` (updates `:latest`) and `v*` release tags (updates the semver tag).
+    # `main` (updates `:latest`) and `v*` release tags (updates the semver tag),
+    # regardless of trigger (push, workflow_dispatch, or the weekly schedule).
     needs: test
 
     runs-on: ubuntu-latest
     timeout-minutes: 30
     if: |
-      github.event_name == 'push' &&
-      (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+      github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: read
       packages: write

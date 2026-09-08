@@ -60,14 +60,13 @@ jobs:
   push:
     # Ensure test job passes before pushing image. Publishing is restricted to
     # `main` (updates `:latest`) and `v*` release tags (updates the semver tag),
-    # whether triggered by an actual push or a manual workflow_dispatch run.
+    # regardless of trigger (push, workflow_dispatch, or the weekly schedule).
     needs: test
 
     runs-on: ubuntu-latest
     timeout-minutes: 30
     if: |
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
-      (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+      github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: read
       packages: write

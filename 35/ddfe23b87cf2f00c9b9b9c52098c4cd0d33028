@@ -1,0 +1,19 @@
+.github/workflows/container.yml
+  s_552c91116f79df::t_4c9e2bcc8bc3ef 63,69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "35ddfe23b87cf2f00c9b9b9c52098c4cd0d33028",
+  "prompts": {},
+  "sessions": {
+    "s_552c91116f79df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8fcec838-4807-47d3-bc2a-ea1b87cf624f",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "duncdrum <d.paterson@me.com>"
+    }
+  }
+}

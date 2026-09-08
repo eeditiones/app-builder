@@ -2,8 +2,11 @@ name: Builder image (Ant, Node)
 
 on:
   push:
-    # No `branches` filter: runs on every branch push. `tags` below adds
-    # `v*` release tags too; publishing itself is restricted below.
+    # branches and tags are independent filters, not OR'd defaults: with only
+    # `tags` set, pushes to branches (including merges to main) never match
+    # the push event at all. Keep `branches` explicit so merges still run CI.
+    branches:
+      - '**'
     tags:
       - v*
 

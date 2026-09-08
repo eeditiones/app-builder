@@ -1,2 +1,3 @@
 # app-builder
-Container image for building TEI Publisher EXPath packages
+
+Container image for building EXPath packages for eXist-db and TEI Publisher
